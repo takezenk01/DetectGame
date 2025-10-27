@@ -1,14 +1,15 @@
 # キャラクター行動検出AI
 
-物体検出AIを使用し、ゲームにおけるプレイヤーの行動を把握するシステムです。<br>
+物体検出AIを使用し、ゲームにおけるプレイヤーの行動を検出するシステムです。<br>
+自分のプレイと上級者のプレイを比較し、何が違うのかを確かめるツールとして作成しました。<br>
+例としてpredict_video_demo.mp4の動画をご覧ください。<br>
+（スプラトゥーン3で作成してみました。）<br>
 これにより、プレイヤーの行動ログを出力し、上級者等が取る行動にはどのようなものが多いかを<br>
-解析することができます。<br>
-このプロジェクトでは、プレイヤーの行動の検出までを行っています。<br>
-アウトプット例はpredict_video_demo.mp4の動画をご覧ください。<br>
-（スプラトゥーン3で作成してみました。）
+解析することに行いたいと考えています。<br>
+このREADMEでは、Yolo11での実行手順を記載します。お好みの画像、動画で行動検出を行ってください。<br>
 ---
 
-## プロジェクト概要
+## 概要
 Python 3.11.9 の仮想環境でYOLOv11使用し、<br>
 学習 → 検証 → 推論（動画）までを一通り実行する手順をまとめたものです。<br>
 （Windows11を想定しています。）
@@ -101,19 +102,19 @@ yolo --version       # 例: Ultralytics 8.3.221
 
 ---
 
-### 4. データセットの準備（YOLO 形式）
-### 4-1 作成した仮想環境直下に、以下の構成でフォルダを作成してください。
+## 5. データセットの準備（YOLO 形式）
+### 5-1 作成した仮想環境直下に、以下の構成でフォルダを作成してください。
 ```bash
 DetectGame/
 └─ data/
    ├─ train　# 学習画像
    └─ val　　# 推論画像
 ```
-### 4-2 trainとvalにアノテーションした学習データを格納します。
+### 5-2 trainとvalにアノテーションした学習データを格納します。
 アノテーションはlabelingというツールを使用しました。使い方は下記URL等をご参照ください。
 https://note.com/npaka/n/nf74e32b47712
 
-### 4-3 data.yamlのラベル名を編集
+### 5-3 data.yamlのラベル名を編集
 作成した学習データのclasses.txtのラベル名とdata.yamlのラベルを揃えます。<br>
 ```bash
 # namesを編集します。
@@ -136,8 +137,8 @@ names:
 
 ---
 
-## 5. 学習・検証・推論
-### 5-1. 学習
+## 6. 学習・検証・推論
+### 6-1. 学習
 train.batを実行してください。もしくは下記コマンドを実行してください。<br>
 精度やお好みに合わせてエポック数、バッチサイズを変更してください。
 ```bash
@@ -148,7 +149,7 @@ yolo detect train model=yolo11s.pt data=data.yaml imgsz=640 epochs=50 batch=16 d
 yolo detect train model=yolo11s.pt data=data.yaml imgsz=640 epochs=50 batch=16 device=cpu
 ```
 
-### 5-2. 検証（mAP）
+### 6-2. 検証（mAP）
 下記コマンドを実行してください。
 ```bash
 # GPU:
@@ -157,7 +158,7 @@ yolo detect val model=runs/detect/train/weights/best.pt data=data.yaml device=0
 yolo detect val model=runs/detect/train/weights/best.pt data=data.yaml device=cpu
 ```
 
-### 5-3. 動画で推論（可視化ファイル保存）
+### 6-3. 動画で推論（可視化ファイル保存）
 下記ファイルを実行してください。<br>
 適宜、重みファイル、動画ファイル名、confを変更してください。
 ```bash
