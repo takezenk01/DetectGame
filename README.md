@@ -125,6 +125,8 @@ names:
       .....
 ```
 
+---
+
 ## 5. 学習・検証・推論
 ### 5-1. 学習
 train.batを実行してください。もしくは下記コマンドを実行してください。<br>
@@ -137,7 +139,7 @@ yolo detect train model=yolo11s.pt data=data.yaml imgsz=640 epochs=50 batch=16 d
 yolo detect train model=yolo11s.pt data=data.yaml imgsz=640 epochs=50 batch=16 device=cpu
 ```
 
-###　5-2. 検証（mAP）
+### 5-2. 検証（mAP）
 下記コマンドを実行してください。
 ```bash
 # GPU:
@@ -147,7 +149,7 @@ yolo detect val model=runs/detect/train/weights/best.pt data=data.yaml device=cp
 ```
 
 ### 5-3. 動画で推論（可視化ファイル保存）
-下記ファイルを実行してください。
+下記ファイルを実行してください。<br>
 適宜、重みファイル、動画ファイル名、confを変更してください。
 ```bash
 python predict.py
