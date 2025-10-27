@@ -92,6 +92,8 @@ print("cuda_available:", torch.cuda.is_available())
 PY
 ```
 
+---
+
 ## 4. Ultralytics（YOLOv11）のインストール
 ```bash
 pip install ultralytics
